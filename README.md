@@ -8,7 +8,7 @@ Official Python Client of the Buttercoin API.  Buttercoin is a trading platform 
 Use pip to install
 
 ```python
-pip install buttercoinsdk-python
+pip install buttercoin
 ```
 
 ## Examples
