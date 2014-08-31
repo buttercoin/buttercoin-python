@@ -57,7 +57,7 @@ class ButtercoinApi(object):
 
     # the default base URL of the Buttercoin API
     production_url = "https://api.buttercoin.com"
-    sandbox_url = "https://api.qa.dcxft.com"
+    sandbox_url = "https://sandbox.buttercoin.com"
     # the default version of the Buttercoin API
     api_version = "v1"
 

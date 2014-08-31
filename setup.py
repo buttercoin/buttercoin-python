@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name="buttercoin",
-      version="0.0.2",
+      version="0.0.3",
       description="Python Client for Buttercoin API",
       author="Buttercoin",
       author_email="kevin@buttercoin.com",
