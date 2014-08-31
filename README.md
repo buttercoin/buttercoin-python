@@ -240,6 +240,10 @@ The aim is to take your great ideas and make everyone's experience using Butterc
 
 - First release.
 
+### 0.0.3
+
+- changed test env to sandbox
+
 ## License
 
 Licensed under the MIT license.
