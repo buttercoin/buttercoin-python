@@ -10,7 +10,11 @@ import hmac
 # requests
 import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
+
+try:
+  from requests.packages.urllib3.poolmanager import PoolManager
+except ImportError:
+  from urllib3.poolmanager import PoolManager
 
 # buttercoin exceptions
 from buttercoin import exceptions
