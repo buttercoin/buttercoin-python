@@ -3,35 +3,35 @@ Buttercoin Python SDK Client
 
 Official Python Client of the Buttercoin API.  Buttercoin is a trading platform that makes buying and selling bitcoin easy.
 
-## Getting Started
+### Getting Started
 
-Use pip to install
+Use pip to install:
 
 ```python
 pip install buttercoin
 ```
 
-## Examples
+### Examples
 
-### Initialization
+#### Initialization
 
 Setting | Property Name | Description
 --- | --- | ---
-Public Key | `publicKey` | Your Buttercoin API Public Key  
-Secret Key | `secretKey` | Your Buttercoin API Secret Key  
+API Key | `apiKey` | Your Buttercoin API Key
+API Secret | `apiSecret` | Your Buttercoin API Secret
 Mode | `mode` | Your development environment (default: `'production'`, set to `'sandbox'` to test with testnet bitcoins)
 
 ```python
 from buttercoin.client import ButtercoinClient
 
 client = ButtercoinClient(
-                public_key='<BUTTERCOIN_PUBLIC_KEY>',
-                secret_key='<BUTTERCOIN_SECRET_KEY>',
+                public_key='<BUTTERCOIN_API_KEY>',
+                secret_key='<BUTTERCOIN_API_SECRET>',
                 mode='<BUTTERCOIN_MODE>' # production or sandbox
          )
 ```
 
-**Tips**
+#### Tips
 
 A note on the `timestamp` param sent to all client methods:
 This param must always be increasing, and within 5 minutes of Buttercoin server times (GMT). This is to prevent replay attacks on your data.
@@ -50,7 +50,7 @@ client.get_key(timestamp=timestamp)
 client.get_key()
 ```
 
-### Get Data
+#### Get Data
 
 **Key Permissions**  
 Returns `array` of permissions associated with this key
@@ -135,7 +135,7 @@ Return the current bid, ask, and last sell prices on the Buttercoin platform
 client.get_ticker()
 ```
 
-### Create New Actions
+#### Create New Actions
 
 **Create Order**
 
@@ -205,7 +205,7 @@ json = client.send_bitcoin(body=txn) # https://api.buttercoin.com/v1/transaction
 ```
 
 
-### Cancel Actions
+#### Cancel Actions
 
 All successful cancel calls to the API return a response status of `204` with a human readable success message
 
@@ -223,29 +223,29 @@ Cancel a pending deposit or withdraw action
 client.cancel_transaction('<transaction_id>')
 ```
 
-## Further Reading
+### Further Reading
 
 [Buttercoin - Website](https://www.buttercoin.com)  
 [Buttercoin API Docs](https://developer.buttercoin.com)
 
-## Contributing
+### Contributing
 
 This is an open source project and we love involvement from the community! Hit us up with pull requests and issues. 
 
-The aim is to take your great ideas and make everyone's experience using Buttercoin even more powerful. The more contributions the better!
+### Release History
 
-## Release History
-
-### 0.0.1
+#### 0.0.1
 
 - First release.
 
-### 0.0.3
+#### 0.0.3
 
-- changed test env to sandbox
+- Changed test env to sandbox
 
-## License
+#### 0.0.4
+
+- Some cleanup and aligned naming conventions.
+
+### License
 
 Licensed under the MIT license.
-
-

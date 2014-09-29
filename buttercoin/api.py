@@ -19,10 +19,6 @@ except ImportError:
 # buttercoin exceptions
 from buttercoin import exceptions
 
-
-__author__ = 'kevin-buttercoin'
-
-
 class HTTPMethods(object):
 
   ''' HTTP methods that can be used with Buttercoin's API. '''
@@ -59,32 +55,22 @@ class ButtercoinApi(object):
     Responsible for communicating with the Buttercoin API. Used also for async processing.
     """
 
-    # the default base URL of the Buttercoin API
+    # the default base URLs of the Buttercoin API
     production_url = "https://api.buttercoin.com"
     sandbox_url = "https://sandbox.buttercoin.com"
+
     # the default version of the Buttercoin API
     api_version = "v1"
 
-    # self says it belongs to ButtercoinApi/andOr is the object passed into ButtercoinApi
-    # __init__ create buttercoinapi object whenever ButtercoinApi class is invoked
-    def __init__(self, public_key=None, secret_key=None, mode='production', api_version='v1'):
-        """
-        Initializes a ButtercoinApi object
-
-        :param public_key: API Public Key
-        :param secret_key: API Secret Key
-        :param base_url: optional, set this to override where API requests are sent
-        :param api_version: string, optional, set this to override what API version is used
-        """
-        # super? recreates the object with values passed into ButtercoinApi
-        super(ButtercoinApi, self).__init__()
-        self.public_key = public_key
-        self.secret_key = secret_key
+    def __init__(self, api_key, api_secret, mode, api_version='v1'):
+        self.api_key = api_key
+        self.api_secret = api_secret
 
         if mode != 'production':
             self.base_url = self.sandbox_url
         else:
             self.base_url = self.production_url
+
         if api_version:
             self.api_version = api_version
 
@@ -115,7 +101,7 @@ class ButtercoinApi(object):
             url += json.dumps(body)
         url = timestamp + url
         msg = base64.b64encode(url)
-        msg = hmac.new(key=self.secret_key, msg=msg, digestmod=hashlib.sha256).digest()
+        msg = hmac.new(key=self.api_secret, msg=msg, digestmod=hashlib.sha256).digest()
         return base64.b64encode(msg)
 
     def _get_headers(self, signature, timestamp):
@@ -126,7 +112,7 @@ class ButtercoinApi(object):
 		:param timestamp: integer, UTC timestamp in ms, must be within 5 minutes of Buttercoin server time 
         """
         headers = {
-            "X-Buttercoin-Access-Key": self.public_key,
+            "X-Buttercoin-Access-Key": self.api_key,
             "X-Buttercoin-Signature": signature,
             "X-Buttercoin-Date": int(timestamp),
             "Content-Type": 'application/json'
@@ -134,10 +120,10 @@ class ButtercoinApi(object):
         return headers
 
     def _perform_request(self, verb, path, timestamp=None, body={}, authenticate=True):
-        # throw error if public or secret key not included, but required
-        if authenticate is True and (not self.public_key or not self.secret_key):
+        # throw error if api key or api secret not included, but required
+        if authenticate is True and (not self.api_key or not self.api_secret):
             raise exceptions.InvalidEnvironmentError(
-                "Public Key and Secret Key are required for this operation."
+                "API Key and API Secret are required for this operation."
             )
 
         url = self._build_url(verb=verb, path=path, body=body)

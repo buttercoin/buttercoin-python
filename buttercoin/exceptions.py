@@ -1,6 +1,3 @@
-__author__ = 'kadams'
-
-
 class BaseButtercoinClientError(Exception):
     """
     Base class for all Buttercoin Client errors.
@@ -21,6 +18,7 @@ class ButtercoinApiError(BaseButtercoinClientError):
             self._message = "{0}\nStacktrace ID: {1}".format(self._message, api_error["stacktrace_id"])
         if "unique_id" in api_error:
             self._message = "{0}\nUnique ID: {1}".format(self._message, api_error["unique_id"])
+
 
 class InvalidEnvironmentError(BaseButtercoinClientError):
     def __init__(self, message):

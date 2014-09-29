@@ -16,12 +16,12 @@ class ClientTests(unittest.TestCase):
     def setUp(self):
         super(ClientTests, self).setUp()
         buttercoin._client = None
-        buttercoin.public_key = None
-        buttercoin.secret_key = None
+        buttercoin.api_key = None
+        buttercoin.api_secret = None
 
     def test_environment_setup(self):
         buttercoin._client = None
-        buttercoin.public_key = None
-        buttercoin.secret_key = None
+        buttercoin.api_key = None
+        buttercoin.api_secret = None
         self.assert_raises(exceptions.InvalidEnvironmentError,
                             buttercoin.get_balances)

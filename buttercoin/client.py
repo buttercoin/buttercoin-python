@@ -1,32 +1,15 @@
-import base64
-import json
-from buttercoin import exceptions
 from buttercoin.api import ButtercoinApi
 
-__author__ = 'kadams'
 
 class ButtercoinClient(object):
     """ The Buttercoin Client is the main object to use to interface with the Buttercoin API. It
-    requires a public_key and private_key.
+    requires an api_key and api_secret.
 
     POST requests will timeout after 305 seconds by default.
     """
 
-    def __init__(self, public_key=None, secret_key=None, mode="production", api_class=ButtercoinApi):
-        """ Initializes a ButtercoinClient object.
-
-        :param public_key: API Public Key
-        :param secret_key: API Secret Key
-        :param mode: sandbox or production
-        """
-        super(ButtercoinClient, self).__init__()
-
-        # Set up an api client to be used for querying 
-        self.api = api_class(public_key=public_key, secret_key=secret_key, mode=mode)
-
-        self.public_key = public_key
-        self.secret_key = secret_key
-        self.mode = mode
+    def __init__(self, api_key, api_secret, mode="production"):
+        self.api = ButtercoinApi(api_key, api_secret, mode)
 
     def get_ticker(self):
         """
@@ -42,10 +25,10 @@ class ButtercoinClient(object):
 
     def get_key(self, timestamp=None):
         """
-		Gets the permissions associated with the given public key
+		Gets the permissions associated with the given API key
 		"""
         return self.api.get('key', timestamp)["permissions"]
-  
+
     def get_balances(self, timestamp=None):
         """
         Gets the balances associated with the account
@@ -111,7 +94,7 @@ class ButtercoinClient(object):
         """
         path = "transactions/{0}".format(transaction_id)
         return self.api.get(path, timestamp)
-    
+
     def get_transaction_by_url(self, url, timestamp=None):
         """
         Performs an transaction query

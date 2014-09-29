@@ -1,24 +1,21 @@
 import os
 from buttercoin.client import ButtercoinClient
 
-__author__ = 'kadams'
-
 _client = None
-public_key = None
-secret_key = None
-
+api_key = None
+api_secret = None
 
 def _initialize_client_from_environment():
-    global _client, public_key, secret_key, mode
+    global _client, api_key, api_secret, mode
 
     if _client is None:
         # check environment for project ID and keys
-        public_key = public_key or os.environ.get("BUTTERCOIN_PUBLIC_KEY")
-        secret_key = secret_key or os.environ.get("BUTTERCOIN_SECRET_KEY")
+        api_key = api_key or os.environ.get("BUTTERCOIN_API_KEY")
+        api_secret = api_secret or os.environ.get("BUTTERCOIN_API_SECRET")
         mode = mode or os.environ.get("BUTTERCOIN_MODE")
 
-        _client = ButtercoinClient(public_key=public_key,
-                                   secret_key=secret_key,
+        _client = ButtercoinClient(api_key=api_key,
+                                   api_secret=api_secret,
                                    mode=mode)
 
 def get_ticker(timestamp=None):
