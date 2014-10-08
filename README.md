@@ -17,16 +17,16 @@ pip install buttercoin
 
 Setting | Property Name | Description
 --- | --- | ---
-API Key | `apiKey` | Your Buttercoin API Key
-API Secret | `apiSecret` | Your Buttercoin API Secret
+API Key | `api_key` | Your Buttercoin API Key
+API Secret | `api_secret` | Your Buttercoin API Secret
 Mode | `mode` | Your development environment (default: `'production'`, set to `'sandbox'` to test with testnet bitcoins)
 
 ```python
 from buttercoin.client import ButtercoinClient
 
 client = ButtercoinClient(
-                public_key='<BUTTERCOIN_API_KEY>',
-                secret_key='<BUTTERCOIN_API_SECRET>',
+                api_key='<BUTTERCOIN_API_KEY>',
+                api_secret='<BUTTERCOIN_API_SECRET>',
                 mode='<BUTTERCOIN_MODE>' # production or sandbox
          )
 ```
