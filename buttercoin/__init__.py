@@ -26,6 +26,10 @@ def get_orderbook(timestamp=None):
     _initialize_client_from_environment()
     return _client.get_orderbook(timestamp=timestamp)
 
+def get_trade_history(timestamp=None):
+    _initialize_client_from_environment()
+    return _client.get_trade_history(timestamp=timestamp)
+
 def get_key(timestamp=None):
     _initialize_client_from_environment()
     return _client.get_key(timestamp=timestamp)

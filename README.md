@@ -135,7 +135,14 @@ Return the current bid, ask, and last sell prices on the Buttercoin platform
 client.get_ticker()
 ```
 
-#### Create New Actions
+**Get Trade History**  
+Return the last 100 trades
+
+```python
+client.get_trade_history()
+```
+
+### Create New Actions
 
 **Create Order**
 
@@ -236,13 +243,19 @@ This is an open source project and we love involvement from the community! Hit u
 
 #### 0.0.1
 
+### 0.0.4
+
+- added trade history endpoint
+
+### 0.0.3
+
+- changed test env to sandbox
+
+### 0.0.1
+
 - First release.
 
-#### 0.0.3
-
-- Changed test env to sandbox
-
-#### 0.0.4
+## License
 
 - Some cleanup and aligned naming conventions.
 

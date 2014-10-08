@@ -23,6 +23,12 @@ class ButtercoinClient(object):
 		"""
         return self.api.get('orderbook', None, {}, False)
 
+    def get_trade_history(self):
+        """
+	    Gets the last 100 trades
+	    """
+        return self.api.get('trades', None, {}, False)["trades"]
+
     def get_key(self, timestamp=None):
         """
 		Gets the permissions associated with the given API key
@@ -45,9 +51,9 @@ class ButtercoinClient(object):
         """
         Performs an order query returning a list of orders
 
-           Returns the orders that meet the given criteria.
+        Returns the orders that meet the given criteria.
 
-           :param body: json, JSON object containing the query parameters
+        :param body: json, JSON object containing the query parameters
         """
         return self.api.get('orders', timestamp, body)["results"]
 
