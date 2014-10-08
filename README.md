@@ -241,23 +241,17 @@ This is an open source project and we love involvement from the community! Hit u
 
 ### Release History
 
-#### 0.0.1
-
-### 0.0.4
+#### 0.0.4
 
 - added trade history endpoint
 
-### 0.0.3
+#### 0.0.3
 
 - changed test env to sandbox
 
-### 0.0.1
+#### 0.0.1
 
 - First release.
-
-## License
-
-- Some cleanup and aligned naming conventions.
 
 ### License
 
