@@ -165,6 +165,8 @@ client.create_order(body=order) # http://api.buttercoin.com/v1/orders/b9fa58e6-a
 
 **Create Transaction**  
 
+_Please contact Buttercoin support before creating a USD deposit using the API_
+
 Deposit transaction params include:  
 
 Name | Param | Description
