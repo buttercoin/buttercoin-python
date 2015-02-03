@@ -9,8 +9,6 @@ from buttercoin import exceptions
 import buttercoin
 from buttercoin.client import ButtercoinClient
 
-__author__ = 'kevin-buttercoin'
-
 class ClientTests(unittest.TestCase):
 
     def setUp(self):
