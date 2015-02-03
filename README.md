@@ -1,4 +1,4 @@
-Buttercoin API Python Client
+Buttercoin API Python Client [![Build Status](https://travis-ci.org/buttercoin/buttercoin-python.svg)](https://travis-ci.org/buttercoin/buttercoin-python)
 ============================
 
 Official Python Client of the Buttercoin API.  Buttercoin is a trading platform that makes buying and selling bitcoin easy.
