@@ -4,7 +4,6 @@ class BaseButtercoinClientError(Exception):
     """
 
     def __str__(self):
-        # all sub-classes should set self._message in their initializers
         return self._message
 
 

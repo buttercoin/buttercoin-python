@@ -1,4 +1,3 @@
-# stdlib
 import json
 import jsonurl
 import ssl
@@ -7,33 +6,30 @@ import base64
 import hashlib
 import hmac
 
-# requests
 import requests
 from requests.adapters import HTTPAdapter
 
 try:
-  from requests.packages.urllib3.poolmanager import PoolManager
+    from requests.packages.urllib3.poolmanager import PoolManager
 except ImportError:
-  from urllib3.poolmanager import PoolManager
+    from urllib3.poolmanager import PoolManager
 
 # buttercoin exceptions
 from buttercoin import exceptions
 
+
 class HTTPMethods(object):
+    ''' HTTP methods that can be used with Buttercoin's API. '''
 
-  ''' HTTP methods that can be used with Buttercoin's API. '''
-
-  GET = 'get'
-  POST = 'post'
-  DELETE = 'delete'
+    GET = 'get'
+    POST = 'post'
+    DELETE = 'delete'
 
 
 class ButtercoinAdapter(HTTPAdapter):
-
     ''' Adapt :py:mod:`requests` to Buttercoin. '''
 
     def init_poolmanager(self, connections, maxsize, block=False):
-
         ''' Initialize pool manager with forced TLSv1 support. '''
 
         self.poolmanager = PoolManager(num_pools=connections,
@@ -86,7 +82,7 @@ class ButtercoinApi(object):
         if verb == HTTPMethods.GET and body:
             url += "?" + jsonurl.query_string(body)
         return url
-  
+
     def _get_signature(self, verb, path, url, timestamp, body={}):
         """
         Performs the HMAC with SHA-256 signature of the timestamp, url, and params
@@ -143,18 +139,19 @@ class ButtercoinApi(object):
         if response.status_code == 200:
             val = response.json()
         elif response.status_code == 201:
-            val = { 'status': response.status_code, 'message': 'This operation requires email confirmation'}
+            val = {'status': response.status_code, 'message': 'This operation requires email confirmation'}
         elif response.status_code == 202:
             val = response.headers['location']
         elif response.status_code == 204:
-            val = { 'status': response.status_code, 'message': 'This operation has completed successfully'}
+            val = {'status': response.status_code, 'message': 'This operation has completed successfully'}
         elif response.status_code >= 400:
             error = response.json()
             raise exceptions.ButtercoinApiError(error)
         return val
 
     def get(self, path, timestamp=None, body={}, authenticate=True):
-        return self._perform_request(HTTPMethods.GET, path=path, body=body, timestamp=timestamp, authenticate=authenticate)
+        return self._perform_request(HTTPMethods.GET, path=path, body=body, timestamp=timestamp,
+                                     authenticate=authenticate)
 
     def post(self, path, timestamp=None, body={}):
         return self._perform_request(HTTPMethods.POST, path=path, body=body, timestamp=timestamp)

@@ -1,5 +1,5 @@
-Buttercoin Python SDK Client
-===============
+Buttercoin API Python Client
+============================
 
 Official Python Client of the Buttercoin API.  Buttercoin is a trading platform that makes buying and selling bitcoin easy.
 
@@ -25,10 +25,10 @@ Mode | `mode` | Your development environment (default: `'production'`, set to `'
 from buttercoin.client import ButtercoinClient
 
 client = ButtercoinClient(
-                api_key='<BUTTERCOIN_API_KEY>',
-                api_secret='<BUTTERCOIN_API_SECRET>',
-                mode='<BUTTERCOIN_MODE>' # production or sandbox
-         )
+    api_key='<BUTTERCOIN_API_KEY>',
+    api_secret='<BUTTERCOIN_API_SECRET>',
+    mode='<BUTTERCOIN_MODE>' # production or sandbox
+)
 ```
 
 #### Tips
@@ -42,7 +42,6 @@ Because of this, if you need your API calls to run in a certain order, you must 
 
 ```
 timestamp = unicode(int(round(time.time() * 1000)))
-
 client.get_key(timestamp=timestamp)
 
 # or default to current timestamp
@@ -193,7 +192,7 @@ Amount | `amount` | `string`, required `true`
 
 ```python
 # create withdrawal
-txn = { "currency": "USD", "amount": "30020.30", "method": "check" } 
+txn = { "currency": "USD", "amount": "3020.30", "method": "check" }
 json = client.create_withdrawal(body=txn) # https://api.buttercoin.com/v1/transactions/53db06ee7400007700f4c561
 
 ```
@@ -235,7 +234,7 @@ client.cancel_transaction('<transaction_id>')
 ### Further Reading
 
 [Buttercoin - Website](https://www.buttercoin.com)  
-[Buttercoin API Docs](https://developer.buttercoin.com)
+[Buttercoin API Documentation](https://developer.buttercoin.com)
 
 ### Contributing
 
@@ -243,17 +242,7 @@ This is an open source project and we love involvement from the community! Hit u
 
 ### Release History
 
-#### 0.0.4
-
-- added trade history endpoint
-
-#### 0.0.3
-
-- changed test env to sandbox
-
-#### 0.0.1
-
-- First release.
+1.0.0 First release.
 
 ### License
 
