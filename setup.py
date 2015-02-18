@@ -10,6 +10,6 @@ setup(name="buttercoin",
       author_email="hello@buttercoin.com",
       url="https://github.com/buttercoin/buttercoin-python",
       keywords = ['bitcoin', 'buttercoin', 'trading platform', 'cryptocurrency', 'digital currency', 'btc'],
-      install_requires=["requests", "jsonurl"],
+      install_requires=["requests"],
       tests_require=["nose"]
 )

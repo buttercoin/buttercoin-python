@@ -1,4 +1,3 @@
 nose==1.1.2
 pycrypto==2.6.1
 requests==2.5.1
-jsonurl==1.0.0

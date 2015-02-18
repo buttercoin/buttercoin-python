@@ -4,16 +4,16 @@ from buttercoin.client import ButtercoinClient
 _client = None
 api_key = None
 api_secret = None
+mode = None
 
 
 def _initialize_client_from_environment():
     global _client, api_key, api_secret, mode
 
     if _client is None:
-        # check environment for project ID and keys
         api_key = api_key or os.environ.get("BUTTERCOIN_API_KEY")
         api_secret = api_secret or os.environ.get("BUTTERCOIN_API_SECRET")
-        mode = mode or os.environ.get("BUTTERCOIN_MODE")
+        mode = mode or os.getenv("BUTTERCOIN_MODE", "production")
 
         _client = ButtercoinClient(api_key=api_key,
                                    api_secret=api_secret,
@@ -50,7 +50,10 @@ def get_deposit_address(timestamp=None):
     return _client.get_deposit_address(timestamp=timestamp)
 
 
-def get_orders(body={}, timestamp=None):
+def get_orders(body=None, timestamp=None):
+    if not body:
+        body = {}
+
     _initialize_client_from_environment()
     return _client.get_orders(body=body, timestamp=timestamp)
 
@@ -65,7 +68,10 @@ def get_order_by_url(url, timestamp=None):
     return _client.get_order_by_url(url, timestamp=timestamp)
 
 
-def get_transactions(body={}, timestamp=None):
+def get_transactions(body=None, timestamp=None):
+    if not body:
+        body = {}
+
     _initialize_client_from_environment()
     return _client.get_transactions(body=body, timestamp=timestamp)
 
@@ -80,21 +86,33 @@ def get_transaction_by_url(url, timestamp=None):
     return _client.get_transaction_by_url(url, timestamp=timestamp)
 
 
-def create_order(data={}, timestamp=None):
+def create_order(data=None, timestamp=None):
+    if not data:
+        data = {}
+
     _initialize_client_from_environment()
     return _client.create_order(data=data, timestamp=timestamp)
 
 
-def create_deposit(data={}, timestamp=None):
+def create_deposit(data=None, timestamp=None):
+    if not data:
+        data = {}
+
     _initialize_client_from_environment()
     return _client.create_deposit(data=data, timestamp=timestamp)
 
 
-def create_withdrawal(data={}, timestamp=None):
+def create_withdrawal(data=None, timestamp=None):
+    if not data:
+        data = {}
+
     _initialize_client_from_environment()
     return _client.create_withdrawal(data=data, timestamp=timestamp)
 
 
-def send_bitcoin(data={}, timestamp=None):
+def send_bitcoin(data=None, timestamp=None):
+    if not data:
+        data = {}
+
     _initialize_client_from_environment()
     return _client.send_bitcoin(data=data, timestamp=timestamp)

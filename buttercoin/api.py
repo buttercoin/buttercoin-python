@@ -1,10 +1,10 @@
 import json
-import jsonurl
 import ssl
 import time
 import base64
 import hashlib
 import hmac
+import urllib
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -51,11 +51,9 @@ class ButtercoinApi(object):
     Responsible for communicating with the Buttercoin API. Used also for async processing.
     """
 
-    # the default base URLs of the Buttercoin API
     production_url = "https://api.buttercoin.com"
     sandbox_url = "https://sandbox.buttercoin.com"
 
-    # the default version of the Buttercoin API
     api_version = "v1"
 
     def __init__(self, api_key, api_secret, mode, api_version='v1'):
@@ -70,20 +68,8 @@ class ButtercoinApi(object):
         if api_version:
             self.api_version = api_version
 
-    def _build_url(self, verb, path, body={}):
-        """
-        Builds the API url from the baseUrl and the endpoint
 
-        :param verb: string, the http request method to use 
-        :param path: string, the api call path (e.g. orders)
-        :param body: JSON object, the request params
-        """
-        url = self.base_url + "/" + self.api_version + "/" + path
-        if verb == HTTPMethods.GET and body:
-            url += "?" + jsonurl.query_string(body)
-        return url
-
-    def _get_signature(self, verb, path, url, timestamp, body={}):
+    def _get_signature(self, verb, path, url, timestamp, body=None):
         """
         Performs the HMAC with SHA-256 signature of the timestamp, url, and params
 
@@ -93,8 +79,13 @@ class ButtercoinApi(object):
         :param timestamp: integer, UTC timestamp in ms, must be within 5 minutes of Buttercoin server time 
         :param body: JSON object, the request params
 		"""
+
+        if not body:
+            body = {}
+
         if verb == HTTPMethods.POST and body:
             url += json.dumps(body)
+
         url = timestamp + url
         msg = base64.b64encode(url)
         msg = hmac.new(key=self.api_secret, msg=msg, digestmod=hashlib.sha256).digest()
@@ -115,17 +106,25 @@ class ButtercoinApi(object):
         }
         return headers
 
-    def _perform_request(self, verb, path, timestamp=None, body={}, authenticate=True):
+    def _perform_request(self, verb, path, timestamp=None, body=None, authenticate=True):
+        if not body:
+            body = {}
+
         # throw error if api key or api secret not included, but required
         if authenticate is True and (not self.api_key or not self.api_secret):
             raise exceptions.InvalidEnvironmentError(
                 "API Key and API Secret are required for this operation."
             )
 
-        url = self._build_url(verb=verb, path=path, body=body)
+        url = self.base_url + "/" + self.api_version + "/" + path
+        if verb == HTTPMethods.GET and body:
+            url += "?" + '&'.join("%s=%s" % (key, urllib.quote(val).replace('%3A', ':')) for (key, val) in body.iteritems())
+
         if not timestamp:
             timestamp = unicode(int(round(time.time() * 1000)))
+
         headers = {}
+
         if authenticate:
             signature = self._get_signature(verb=verb, path=path, url=url, body=body, timestamp=timestamp)
             headers = self._get_headers(signature=signature, timestamp=timestamp)
@@ -149,11 +148,17 @@ class ButtercoinApi(object):
             raise exceptions.ButtercoinApiError(error)
         return val
 
-    def get(self, path, timestamp=None, body={}, authenticate=True):
+    def get(self, path, timestamp=None, body=None, authenticate=True):
+        if not body:
+            body = {}
+
         return self._perform_request(HTTPMethods.GET, path=path, body=body, timestamp=timestamp,
                                      authenticate=authenticate)
 
-    def post(self, path, timestamp=None, body={}):
+    def post(self, path, timestamp=None, body=None):
+        if not body:
+            body = {}
+
         return self._perform_request(HTTPMethods.POST, path=path, body=body, timestamp=timestamp)
 
     def delete(self, path, timestamp=None):
