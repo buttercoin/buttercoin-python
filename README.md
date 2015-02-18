@@ -5,13 +5,13 @@ Official Python Client of the [Buttercoin API](https://developer.buttercoin.com)
 
 ## Installation
 
-### Install via `pip`_
+#### Install via [pip](http://www.pip-installer.org/)
 
 ```shell
 $ pip install buttercoin
 ```
 
-### Install from source
+#### Install from source
 
 ```shell
 $ git clone git@github.com:buttercoin/buttercoin-python.git
@@ -251,5 +251,3 @@ client.cancel_transaction('<transaction_id>')
 Licensed under the MIT license.
 
 Copyright 2015 [Buttercoin Inc](mailto:hello@buttercoin.com). All Rights Reserved.
-
-.. _pip: http://www.pip-installer.org/
