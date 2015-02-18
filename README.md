@@ -1,19 +1,29 @@
 Buttercoin API Python Client [![Build Status](https://travis-ci.org/buttercoin/buttercoin-python.svg)](https://travis-ci.org/buttercoin/buttercoin-python)
 ============================
 
-Official Python Client of the Buttercoin API.  Buttercoin is a trading platform that makes buying and selling bitcoin easy.
+Official Python Client of the [Buttercoin API](https://developer.buttercoin.com). [Buttercoin](https://buttercoin.com) is a trading platform that makes buying and selling [bitcoin](http://en.wikipedia.org/wiki/Bitcoin) easy.
 
-### Getting Started
+## Installation
 
-Use pip to install:
+### Install via `pip`_
 
-```python
-pip install buttercoin
+```shell
+$ pip install buttercoin
 ```
 
-### Examples
+### Install from source
 
-#### Initialization
+```shell
+$ git clone git@github.com:buttercoin/buttercoin-python.git
+$ cd buttercoin-python
+$ python setup.py install
+```
+
+## Usage
+
+#### HMAC-SHA256 Authentication
+
+You need an [API key and secret](https://buttercoin.com/#/api) to use [HMAC](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code).
 
 Setting | Property Name | Description
 --- | --- | ---
@@ -231,19 +241,15 @@ Cancel a pending deposit or withdraw action
 client.cancel_transaction('<transaction_id>')
 ```
 
-### Further Reading
+## Further Reading
 
-[Buttercoin - Website](https://www.buttercoin.com)  
-[Buttercoin API Documentation](https://developer.buttercoin.com)
+  * [Buttercoin - Website](https://www.buttercoin.com)
+  * [Buttercoin API Documentation](https://developer.buttercoin.com)
 
-### Contributing
-
-This is an open source project and we love involvement from the community! Hit us up with pull requests and issues. 
-
-### Release History
-
-1.0.0 First release.
-
-### License
+## License
 
 Licensed under the MIT license.
+
+Copyright 2015 [Buttercoin Inc](mailto:hello@buttercoin.com). All Rights Reserved.
+
+.. _pip: http://www.pip-installer.org/
