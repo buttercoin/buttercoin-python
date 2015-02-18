@@ -1,7 +1,7 @@
 import os
 from buttercoin.client import ButtercoinClient
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 _client = None
 api_key = None

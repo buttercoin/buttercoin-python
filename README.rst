@@ -1,26 +1,24 @@
-Buttercoin API Python Client |Build Status|
-===========================================
+Buttercoin API Python Client
+============================
 
-Official Python Client of the `Buttercoin
-API <https://developer.buttercoin.com>`__.
-`Buttercoin <https://buttercoin.com>`__ is a trading platform that makes
-buying and selling `bitcoin <http://en.wikipedia.org/wiki/Bitcoin>`__
-easy.
+Official Python Client of the `Buttercoin API <https://developer.buttercoin.com>`_.
+`Buttercoin <https://buttercoin.com>`_ is a trading platform that makes
+buying and selling `bitcoin <http://en.wikipedia.org/wiki/Bitcoin>`_ easy.
 
 Installation
 ------------
 
-Install via `pip <http://www.pip-installer.org/>`__
+Install via `pip <http://www.pip-installer.org/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: shell
+.. code-block:: shell
 
     $ pip install buttercoin
 
 Install from source
 ^^^^^^^^^^^^^^^^^^^
 
-.. code:: shell
+.. code-block:: shell
 
     $ git clone git@github.com:buttercoin/buttercoin-python.git
     $ cd buttercoin-python
@@ -32,8 +30,8 @@ Usage
 HMAC-SHA256 Authentication
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You need an `API key and secret <https://buttercoin.com/#/api>`__ to use
-`HMAC <http://en.wikipedia.org/wiki/Hash-based_message_authentication_code>`__.
+You need an `API key and secret <https://buttercoin.com/#/api>`_ to use
+`HMAC <http://en.wikipedia.org/wiki/Hash-based_message_authentication_code>`_.
 
 +--------------+------------------+----------------------------------------------------------------------------------------------------------------+
 | Setting      | Property Name    | Description                                                                                                    |
@@ -45,7 +43,7 @@ You need an `API key and secret <https://buttercoin.com/#/api>`__ to use
 | Mode         | ``mode``         | Your development environment (default: ``'production'``, set to ``'sandbox'`` to test with testnet bitcoins)   |
 +--------------+------------------+----------------------------------------------------------------------------------------------------------------+
 
-.. code:: python
+.. code-block:: python
 
     from buttercoin.client import ButtercoinClient
 
@@ -81,31 +79,37 @@ parameter, it will default to the current timestamp.*
 Get Data
 ^^^^^^^^
 
-| **Key Permissions**
-| Returns ``array`` of permissions associated with this key
+Key Permissions
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: python
+Returns ``array`` of permissions associated with this key.
+
+.. code-block:: python
 
     client.get_key()
 
-| **Balances**
-| Returns ``dict`` of balances for this account
+Balances
+^^^^^^^^
 
-.. code:: python
+Returns ``dict`` of balances for this account.
+
+.. code-block:: python
 
     client.get_balances()
 
-| **Deposit Address**
-| Returns bitcoin address ``string`` to deposit your funds into the
-Buttercoin platform
+Deposit Address
+^^^^^^^^^^^^^^^
 
-.. code:: python
+Returns bitcoin address ``string`` to deposit your funds into the Buttercoin platform.
+
+.. code-block:: python
 
     client.get_deposit_address()
 
-| **Get Orders**
-| Returns ``array`` of ``dict`` objects containing information about buy
-and sell orders
+Get Orders
+^^^^^^^^^^
+
+Returns ``array`` of ``dict`` objects containing information about buy and sell orders.
 
 +--------------+-----------------+----------------------------------------------------------------+
 | Name         | Param           | Description                                                    |
@@ -121,7 +125,7 @@ and sell orders
 | Date Max     | ``dateMax``     | format: ISO-8601, e.g. ``'2014-05-06T13:15:30Z'``              |
 +--------------+-----------------+----------------------------------------------------------------+
 
-.. code:: python
+.. code-block:: python
 
     # query for multiple orders
     body = {'status':'canceled'}
@@ -133,9 +137,10 @@ and sell orders
     # single order by url
     client.get_order_by_url('http://api.buttercoin.com/v1/orders/b9fa58e6-a441-48ca-afbb-14827fca2f7a')
 
-| **Get Transactions**
-| Returns ``array`` of ``dict`` objects containing information about
-deposit and withdraw action
+Get Transactions
+^^^^^^^^^^^^^^^^
+
+Returns ``array`` of ``dict`` objects containing information about deposit and withdraw action.
 
 +--------------------+-----------------------+-----------------------------------------------------------------------+
 | Name               | Param                 | Description                                                           |
@@ -149,7 +154,7 @@ deposit and withdraw action
 | Date Max           | ``dateMax``           | format: ISO-8601, e.g. ``'2014-05-06T13:15:30Z'``                     |
 +--------------------+-----------------------+-----------------------------------------------------------------------+
 
-.. code:: python
+.. code-block:: python
 
     # query for multiple transactions
     body = {'status':'pending'}
@@ -162,36 +167,41 @@ deposit and withdraw action
     client.get_transaction_by_url('http://api.buttercoin.com/v1/transactions/53db06ee7400007700f4c561')
     });
 
-Unauthenticated Requests (not subject to daily API rate limit)
-                                                              
+Unauthenticated Requests
+------------------------
 
-| **Get Order Book**
-| Return a ``dict`` object of current orders in the Buttercoin order
-book
+Get Order Book
+^^^^^^^^^^^^^^
 
-.. code:: python
+Return a ``dict`` object of current orders in the Buttercoin order book.
+
+.. code-block:: python
 
     client.get_order_book()
 
-| **Get Ticker**
-| Return the current bid, ask, and last sell prices on the Buttercoin
-platform
+Get Ticker
+^^^^^^^^^^
 
-.. code:: python
+Return the current bid, ask, and last sell prices on the Buttercoin platform.
+
+.. code-block:: python
 
     client.get_ticker()
 
-| **Get Trade History**
-| Return the last 100 trades
+Get Trade History
+^^^^^^^^^^^^^^^^^
 
-.. code:: python
+Return the last 100 trades.
+
+.. code-block:: python
 
     client.get_trade_history()
 
 Create New Actions
 ~~~~~~~~~~~~~~~~~~
 
-**Create Order**
+Create Order
+^^^^^^^^^^^^
 
 Valid order params include:
 
@@ -209,17 +219,17 @@ Valid order params include:
 | Quantity     | ``quantity``     | ``string``, required ``false``                     |
 +--------------+------------------+----------------------------------------------------+
 
-.. code:: python
+.. code-block:: python
 
     # create a JSON object with the following params
     order = {"instrument":"BTC_USD","side": "buy","orderType":"limit","price":"600","quantity":"0.2346"}
 
     client.create_order(body=order) # http://api.buttercoin.com/v1/orders/b9fa58e6-a441-48ca-afbb-14827fca2f7a
 
-**Create Transaction**
+Create Transaction
+^^^^^^^^^^^^^^^^^^
 
-*Please contact Buttercoin support before creating a USD deposit using
-the API*
+Please contact Buttercoin support before creating a USD deposit using the API.
 
 Deposit transaction params include:
 
@@ -233,7 +243,7 @@ Deposit transaction params include:
 | Amount     | ``amount``     | ``string``, required ``true``           |
 +------------+----------------+-----------------------------------------+
 
-.. code:: python
+.. code-block:: python
 
     # create deposit
     txn = { "method": "wire", "currency": "USD", "amount": "500" }
@@ -251,10 +261,9 @@ Withdrawal transaction params include:
 | Amount     | ``amount``     | ``string``, required ``true``            |
 +------------+----------------+------------------------------------------+
 
-*If you have the security setting requiring confirmation of dollar
-withdrawals, you will see a 201 status*
+If you have the security setting requiring confirmation of dollar withdrawals, you will see a 201 status.
 
-.. code:: python
+.. code-block:: python
 
     # create withdrawal
     txn = { "currency": "USD", "amount": "3020.30", "method": "check" }
@@ -275,7 +284,7 @@ Send bitcoin transaction params include:
 *If you have the security setting requiring confirmation of bitcoin
 withdrawals, you will see a 201 status*
 
-.. code:: python
+.. code-block:: python
 
     # send bitcoins to an address
     txn = { "currency": "BTC", "amount": "0.30", "destination": "msj42CCGruhRsFrGATiUuh25dtxYtnpbTx" } 
@@ -287,33 +296,33 @@ Cancel Actions
 All successful cancel calls to the API return a response status of
 ``204`` with a human readable success message
 
-| **Cancel Order**
-| Cancel a pending buy or sell order
+Cancel Order
+^^^^^^^^^^^^
 
-.. code:: python
+Cancel a pending buy or sell order
+
+.. code-block:: python
 
     client.cancel_order('<order_id>')
 
-| **Cancel Transaction**
-| Cancel a pending deposit or withdraw action
+Cancel Transaction
+^^^^^^^^^^^^^^^^^^
 
-.. code:: python
+Cancel a pending deposit or withdraw action
+
+.. code-block:: python
 
     client.cancel_transaction('<transaction_id>')
 
 Further Reading
 ---------------
 
--  `Buttercoin - Website <https://www.buttercoin.com>`__
--  `Buttercoin API Documentation <https://developer.buttercoin.com>`__
+-  `Buttercoin - Website <https://www.buttercoin.com>`_
+-  `Buttercoin API Documentation <https://developer.buttercoin.com>`_
 
 License
 -------
 
 Licensed under the MIT license.
 
-Copyright 2015 `Buttercoin Inc <mailto:hello@buttercoin.com>`__. All
-Rights Reserved.
-
-.. |Build Status| image:: https://travis-ci.org/buttercoin/buttercoin-python.svg
-   :target: https://travis-ci.org/buttercoin/buttercoin-python
+Copyright 2015 `Buttercoin Inc <mailto:hello@buttercoin.com>`_. All Rights Reserved.
